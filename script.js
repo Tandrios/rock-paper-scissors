@@ -1,37 +1,39 @@
 addEventListener("DOMContentLoaded", (event) => {
-
-    // When button is clicked update <p> output-self
-        //Get buttons
-        const buttons = document.querySelectorAll('button');
-        
-
-        // Add event listener on each button and check button id => update html with correct one
-        buttons.forEach(function (button) {
-            button.addEventListener('click', function (event) {
-                console.log(event.target.id);
-                switch (event.target.id) {
-                    case "rock":
-                        document.querySelector("#output-self").innerHTML = this.innerHTML;
-                        printWinner(winner(event.target.id, computerChoice())); //printWinner prints the winner which is the return value of winner, which takes 2 inputs.
-                        break;
-                    case "paper":
-                        document.querySelector("#output-self").innerHTML = this.innerHTML;
-                        printWinner(winner(event.target.id, computerChoice()))
-                        break;
-                    case "scissors":
-                        document.querySelector("#output-self").innerHTML = this.innerHTML;
-                        printWinner(winner(event.target.id, computerChoice()))
-                        break;
-                }
-            });
-        });
-
-
+    let selfScore = 0
+    let computerScore = 0
+    playRound();
 
 });
 
+function playRound () {
+
+    //Get buttons
+    const buttons = document.querySelectorAll('button');
+
+    // Add event listener on each button and check button id => update html with correct one
+    buttons.forEach(function (button) {
+        button.addEventListener('click', function (event) {
+            console.log(event.target.id);
+            switch (event.target.id) {
+                case "rock":
+                    document.querySelector("#output-self").innerHTML = this.innerHTML;
+                    printWinner(getWinner(event.target.id, getComputerChoice())); //printWinner prints the winner which is the return value of winner, which takes 2 inputs.
+                    break;
+                case "paper":
+                    document.querySelector("#output-self").innerHTML = this.innerHTML;
+                    printWinner(getWinner(event.target.id, getComputerChoice()))
+                    break;
+                case "scissors":
+                    document.querySelector("#output-self").innerHTML = this.innerHTML;
+                    printWinner(getWinner(event.target.id, getComputerChoice()))
+                    break;
+            }
+        });
+    });
+}
+
 // Function to determine choice computer, returns value
-function computerChoice (){
+function getComputerChoice (){
     computerInt = Math.floor(Math.random() * 3);
 
     switch (computerInt) {
@@ -48,7 +50,7 @@ function computerChoice (){
 }
 
 //Function to determine winner
-function winner (self, computer) {
+function getWinner (self, computer) {
     if (self === 'rock') {
         if (computer === 'rock') {
             return "tie";
